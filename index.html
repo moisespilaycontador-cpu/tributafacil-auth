@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TributaFacil XML - Acceso</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 520px;
+      margin: 70px auto;
+      padding: 24px;
+      color: #222;
+      text-align: center;
+    }
+    .panel {
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 28px;
+    }
+    h1 { color: #16803c; }
+    p { line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <h1>TributaFacil XML</h1>
+    <p id="mensaje">Verificando el acceso...</p>
+  </div>
+
+  <script>
+    const mensaje = document.getElementById("mensaje");
+    const hash = new URLSearchParams(
+      window.location.hash.substring(1)
+    );
+    const params = new URLSearchParams(window.location.search);
+
+    if (hash.has("access_token") && hash.has("refresh_token")) {
+      mensaje.textContent =
+        "El enlace fue recibido. Puedes regresar a TributaFacil XML e intentar iniciar sesión.";
+    } else if (params.has("error_description") || hash.has("error_description")) {
+      mensaje.textContent =
+        "El enlace ha expirado o no es válido. Solicita uno nuevo desde TributaFacil XML.";
+    } else {
+      mensaje.textContent =
+        "Página de retorno preparada. Solicita el acceso desde la extensión.";
+    }
+  </script>
+</body>
+</html>
